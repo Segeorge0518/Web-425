@@ -8,17 +8,18 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   template: `
   <div class="wrapper">
     <header class="banner">
-      <h1>RPG Creation Hub</h1>
+      <h1>{{title}}</h1>
     </header>
 
     <main class="main-content">
       <nav class="navbar">
         <ul>
-          <li><a routerLink="/">Home</a></li>
-          <li><a href="#">Character Creator</a></li>
-          <li><a href="#">Campaign Planner</a></li>
-          <li><a href="#">Lore Keeper</a></li>
-          <li><a href="#">Contact Us</a></li>
+          <li><a routerLink="/home">Home</a></li>
+          <li><a routerLink="/players">Players</a></li>
+          <li><a routerLink="/createCharacter">Create Character</a></li>
+          <li><a routerLink="/createGuild">Create Guild</a></li>
+          <li><a routerLink="/characterFaction">Character Faction</a></li>
+          <li><a routerLink="/signIn">Sign In</a></li>
         </ul>
       </nav>
 
@@ -29,13 +30,13 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 
     <footer class="footer">
       <nav class="footer-nav">
-        <a routerLink="/">Home</a> |
-        <a href="#">Character Creator</a> |
-        <a href="#">Campaign Planner</a> |
-        <a href="#">Lore Keeper</a> |
-        <a href="#">Contact Us</a>
+        <a routerLink="/home">Home</a> |
+        <a routerLink="/players">Players</a> |
+        <a routerLink="/createCharacter">Create Character</a> |
+        <a routerLink="/createGuild">Create Guild</a> |
+        <a routerLink="/signIn">Sign In</a>
       </nav>
-      <p id="copyright">&copy; 2025 RPG Creation Hub  Img Source: https://dice-scroller.com/en/dungeons-and-dragons-classes-an-overview/</p>
+      <p id="copyright">&copy; {{ year }} RPG Creation Hub  Img Source: https://dice-scroller.com/en/dungeons-and-dragons-classes-an-overview/</p>
     </footer>
   </div>
   `
@@ -45,5 +46,11 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   ]
 })
 export class AppComponent {
-  title = 'rpg-character-builder';
+  title = 'string';
+  year: number;
+
+  constructor() {
+    this.title = 'RPG Creation Hub';
+    this.year = new Date().getFullYear();
+  }
 }
