@@ -41,7 +41,7 @@ import { Component } from '@angular/core';
     }
 
     .players-container{
-      display:flex
+      display:flex;
       flex-wrap: wrap;
       list-style-type: none;
       padding: 0;
