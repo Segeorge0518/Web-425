@@ -34,7 +34,8 @@ describe('AppComponent', () => {
 });
 
 describe('AppComponent (Standalone)', () => {
-  beforeEach(async() => { const ActivatedRouteStub = {
+  beforeEach(async() => {
+    const ActivatedRouteStub = {
     snapshot: {
       paramMap: {
         get: () => 'staticValue',
@@ -42,9 +43,10 @@ describe('AppComponent (Standalone)', () => {
     },
     queryParams: of({}),
   };
+
   const routes: Routes = [
     {path: 'players', component: PlayersComponent}
-  ]
+  ];
 
   await TestBed.configureTestingModule({
     imports: [

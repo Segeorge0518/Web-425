@@ -6,6 +6,7 @@ export interface playersItems {
   startingLocation: string;
   funFact: string;
 }
+
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
@@ -143,7 +144,7 @@ export class PlayersComponent { players:
         "faction": "Swallowsong",
         "startingLocation": "Riverwallow",
         "funFact": "Is still convinced they sound like a deer trying to sing underwater."
-      }
-    ]
+      },
+    ];
   }
 }

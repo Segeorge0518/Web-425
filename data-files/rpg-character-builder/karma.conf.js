@@ -4,9 +4,13 @@
 module.exports = function (config) {
   config.set({
     basePath: '',
+    files: [
+      { pattern: 'src/**/*.spec.ts', type: 'js' }
+    ],
     frameworks: ['jasmine', '@angular-devkit/build-angular'],
     plugins: [
       require('karma-jasmine'),
+      require('karma-chrome-launcher'),
       require('karma-firefox-launcher'),
       require('karma-jasmine-html-reporter'),
       require('karma-coverage'),
@@ -33,7 +37,7 @@ module.exports = function (config) {
       ]
     },
     reporters: ['progress', 'kjhtml'],
-    browsers: ['Firefox'],
+    browsers: ['Firefox'], // if you are using Chrome, change this to 'Chrome'
     restartOnFileChange: true
   });
 };
