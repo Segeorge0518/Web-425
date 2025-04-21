@@ -5,6 +5,7 @@ import { CreateCharacterComponent } from './create-character/create-character.co
 import { CreateGuildComponent } from './create-guild/create-guild.component';
 import { CharacterFactionComponent } from './character-faction/character-faction.component';
 import { SigninComponent } from './signin/signin.component';
+import { authGuard } from './auth.guard';
 
 export const routes: Routes = [
   {

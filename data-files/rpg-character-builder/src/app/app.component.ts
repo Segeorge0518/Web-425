@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +21,16 @@ import { RouterLink, RouterOutlet } from '@angular/router';
           <li><a routerLink="/createCharacter">Create Character</a></li>
           <li><a routerLink="/createGuild">Create Guild</a></li>
           <li><a routerLink="/characterFaction">Character Faction</a></li>
-          <li><a routerLink="/signIn">Sign In</a></li>
+          <li>
+            <div class= "signin-container">
+              @if (email) {
+                <p>Welcome, {{ email }}!</p>
+                <button (click)="signout()">Sign Out</button>
+              } @else {
+                <a routerLink="/signIn" class="sign-in-link">Sign In</a>
+               }
+            </div>
+          </li>
         </ul>
       </nav>
 
@@ -42,15 +53,41 @@ import { RouterLink, RouterOutlet } from '@angular/router';
   `
   , styles: [
     `
+    .sign-in-container{
+      text-align: right;
+      padding-right: 20px;
+      margin-top: 10px;
+    }
+
+    .sign-in-link {
+      text-decoration: none;
+    }
+
+    .sign-in-link:hover {
+      text-decoration: underline;
+    }
     `
   ]
 })
 export class AppComponent {
   title = 'string';
   year: number;
+  email?: string;
 
-  constructor() {
+  constructor(private authService: AuthService, private cookieService: CookieService) {
     this.title = 'RPG Creation Hub';
     this.year = new Date().getFullYear();
+  }
+
+  ngOnInit(){
+    this.authService.getAuthState().subscribe((isAuth) => {
+      if (isAuth) {
+        this.email = this.cookieService.get('session_user');
+      }
+    });
+  }
+
+  signout() {
+    this.authService.signout();
   }
 }
