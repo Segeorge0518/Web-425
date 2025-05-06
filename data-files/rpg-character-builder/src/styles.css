@@ -9,7 +9,6 @@ body, header, nav, main, section, footer, img, figure, figcaption, div, ul {
 
 body {
   height:  100%;
-  width: 100%;
 }
 
 .wrapper {
@@ -74,7 +73,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .content {
-  width: 100vw;
   font-family: 'Merriweather', serif;
 }
 

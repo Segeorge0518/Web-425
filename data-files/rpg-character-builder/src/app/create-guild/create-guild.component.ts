@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray,ReactiveFormsModule } from '@angular/forms';
+import { GuildListComponent } from '../guild-list/guild-list.component';
 
-interface Guild {
+export interface Guild {
   guildName: string;
   description: string;
   type: string;
@@ -13,7 +14,7 @@ interface Guild {
 @Component({
   selector: 'app-create-guild',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, GuildListComponent],
   template: `
    <div class="create-guild-container">
     <div class="create-guild-container">
@@ -53,15 +54,7 @@ interface Guild {
       </form>
 
       <div class="guilds-list">
-        <h2>Created Guilds</h2>
-        <ul>
-          <li *ngFor="let guild of createdGuilds">
-            <h3>{{ guild.guildName }}</h3>
-            <p>{{ guild.description }}</p>
-            <p>Type: {{ guild.type }}</p>
-            <p>Notification Preference: {{ guild.notificationPreference }}</p>
-          </li>
-        </ul>
+        <app-guild-list [guild]="guild"> </app-guild-list>
       </div>
     </div>
   `,
@@ -165,6 +158,8 @@ interface Guild {
 export class CreateGuildComponent {
   guildForm: FormGroup;
   createdGuilds: Guild[] = [];
+
+  @Output() guildUpdated = new EventEmitter<Guild>();
 
   constructor(private fb: FormBuilder) {
     this.guildForm = this.fb.group({
