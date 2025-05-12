@@ -45,6 +45,7 @@ import { AuthService } from './auth.service';
         <a routerLink="/players">Players</a> |
         <a routerLink="/createCharacter">Create Character</a> |
         <a routerLink="/createGuild">Create Guild</a> |
+        <a routerLink="/characterFaction">Character Faction</a> |
         <a routerLink="/signIn">Sign In</a>
       </nav>
       <p id="copyright">&copy; {{ year }} RPG Creation Hub  Img Source: https://dice-scroller.com/en/dungeons-and-dragons-classes-an-overview/</p>
