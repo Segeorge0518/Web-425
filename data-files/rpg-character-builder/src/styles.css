@@ -86,19 +86,8 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 15px;
 }
 
-.details p {
-  background-color: #d5e7d4;
-  margin: 5px 40px 5px 40px;
-  padding: 10px;
-  border-radius: 10px;
-}
-
-.details h1, h2 {
-  background-color: #d5e7d4;
-  padding: 10px;
-  border-radius: 10px;
-  display: inline-block;
-  margin: 0px 40px 0px 40px;
+.test p {
+  max-width: 500px;
 }
 
 .footer a {
