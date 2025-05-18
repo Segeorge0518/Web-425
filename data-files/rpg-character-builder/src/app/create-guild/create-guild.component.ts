@@ -1,24 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormArray,ReactiveFormsModule } from '@angular/forms';
-import { GuildListComponent } from '../guild-list/guild-list.component';
-
-export interface Guild {
-  guildName: string;
-  description: string;
-  type: string;
-  acceptTerms: boolean;
-  notificationPreference: string;
-}
 
 @Component({
   selector: 'app-create-guild',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, GuildListComponent],
+  imports: [ReactiveFormsModule, CommonModule],
   template: `
    <div class="create-guild-container">
     <div class="create-guild-container">
-      <form [formGroup]="guildForm" (ngSubmit)="onSubmit()" class="create-guild-form">
+      <form [formGroup]="guildForm" class="create-guild-form" (ngSubmit)="submitGuild()" >
         <h1>Create a New Guild</h1>
         <label for="guildName">Guild Name:</label>
         <input id="guildName" formControlName="guildName" required />
@@ -50,11 +41,24 @@ export interface Guild {
           <input type="radio" formControlName="notificationPreference" value="In-App" required /> In-App
         </label>
 
-        <button type="submit" [disabled]="!guildForm.valid">Create Guild</button>
+        <input type="submit" [disabled]="!guildForm.valid" value= "Submit Guild">
       </form>
 
-      <div class="guilds-list">
-        <app-guild-list [guild]="guild"> </app-guild-list>
+      <div class="guildsList">
+            <h1>Created Guilds</h1>
+    <div class= "guildsList-container">
+      @for (guildsList of preexistingGuilds;track guildsList){
+        <div class= "guildsList-card">
+          <h2>{{ guildsList.guildName }}</h2>
+          <h3> Guild description:</h3>
+          <p>{{ guildsList.description }}</p>
+          <h3>Guild type:</h3>
+          <p>Type: {{ guildsList.type }}</p>
+          <h3>Your notification settings:</h3>
+          <p>{{ guildsList.notificationPreference }}</p>
+        </div>
+      }
+    </div>
       </div>
     </div>
   `,
@@ -156,25 +160,60 @@ export interface Guild {
 `
 })
 export class CreateGuildComponent {
-  guildForm: FormGroup;
-  createdGuilds: Guild[] = [];
+  guildName: string[] = [''];
+  description: string[] = [''];
+  type: string[] = ['Competitive', 'Casual', 'Social', 'Educational'];
+  notificationPreference: string[] = ['Email', 'SMS', 'In-App'];
+  preexistingGuilds: any;
 
-  @Output() guildUpdated = new EventEmitter<Guild>();
+  guildForm: FormGroup = this.gld.group({
+    notificationPreference: [null, Validators.compose([Validators.required])],
+    type: [null, Validators.compose([Validators.required])],
+    description: [null],
+    guildName: [null]
+  })
 
-  constructor(private fb: FormBuilder) {
-    this.guildForm = this.fb.group({
-      guildName: ['', Validators.required],
-      description: ['', Validators.required],
-      type: ['', Validators.required],
-      acceptTerms: [false, Validators.requiredTrue],
-      notificationPreference: ['', Validators.required]
-    });
+  constructor(private gld: FormBuilder) {
+    this.preexistingGuilds = [
+      {
+        guildName: 'testGuild1',
+        description: ['This is a test Guild'],
+        type: 'Educational',
+        notificationPreference: ['SMS']
+      },
+      {
+        guildName: 'testGuild2',
+        description: ['This is a second test Guild'],
+        type: 'Social',
+        notificationPreference: ['Email']
+      },
+      {
+        guildName: 'testGuild3',
+        description: ['This is the third test Guild'],
+        type: 'Casual',
+        notificationPreference: ['In-App']
+
+      },
+      {
+        guildName: 'testGuild4',
+        description: ['This is the fourth test Guild'],
+        type: 'Competitive',
+        notificationPreference: ['Email']
+
+      }
+    ];
   }
 
-  onSubmit() {
-    if (this.guildForm.valid) {
-      this.createdGuilds.push(this.guildForm.value);
-      this.guildForm.reset();
-    }
+  submitGuild() {
+    const createGuilds = {
+      notificationPreference: this.guildForm.value.notificationPreference,
+      type: this.guildForm.value.type,
+      description: this.guildForm.value.description,
+      guildName: this.guildForm.value.guildName
+    };
+    // Now, selectedLikes contains the actual items that were selected
+    console.log('Complete form value:', createGuilds);
+    this.preexistingGuilds.push(createGuilds);
+    alert("Guild submitted successfully!")
   }
 }
